@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InterviewIQ AI Pro — Complete Project Documentation & Specification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-light: #6366f1;
+      --secondary: #06b6d4;
+      --accent: #8b5cf6;
+      --dark: #0f172a;
+      --dark-card: #1e293b;
+      --text: #334155;
+      --text-light: #64748b;
+      --bg: #f8fafc;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.65;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Floating Print / PDF Header */
+    .action-header {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .action-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .action-btns {
+      display: flex;
+      gap: 12px;
+    }
+    .btn {
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-pdf {
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+    }
+    .btn-pdf:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.45);
+    }
+    .btn-back {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Container */
+    .doc-container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 60px 70px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    /* Cover / Header section */
+    .doc-header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 35px;
+      margin-bottom: 40px;
+    }
+    .badge-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(79, 70, 229, 0.1);
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .doc-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .doc-subtitle {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      background: #f1f5f9;
+      padding: 16px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+    .meta-item strong {
+      color: var(--dark);
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    /* Headings */
+    h2 {
+      font-size: 22px;
+      color: var(--dark);
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3 {
+      font-size: 17px;
+      color: var(--dark);
+      font-weight: 600;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 14px;
+      color: #475569;
+    }
+
+    /* Lists & Tables */
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 18px;
+      color: #475569;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+
+    .feature-card {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 18px 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .feature-card.accent { border-left-color: var(--accent); }
+    .feature-card.success { border-left-color: var(--success); }
+    .feature-card.warning { border-left-color: var(--warning); }
+    .feature-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    /* Custom Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 13.5px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: var(--dark);
+      font-weight: 600;
+    }
+    tr:nth-child(even) td {
+      background: #fafafa;
+    }
+
+    /* Code block */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: #f1f5f9;
+      color: #d946ef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12.5px;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 12.5px;
+      margin: 16px 0;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .action-header {
+        display: none !important;
+      }
+      .doc-container {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+      }
+      h2 {
+        page-break-after: avoid;
+      }
+      .feature-card, table, pre {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Top Navigation & PDF Trigger -->
+  <div class="action-header">
+    <h2>🎯 InterviewIQ AI Pro — Technical & Feature Documentation</h2>
+    <div class="action-btns">
+      <a href="login.html" class="btn btn-back">⬅️ Back to App</a>
+      <button class="btn btn-pdf" onclick="window.print()">📄 Save as PDF / Print</button>
+    </div>
+  </div>
+
+  <div class="doc-container">
+
+    <!-- Document Header -->
+    <div class="doc-header">
+      <span class="badge-pill">Comprehensive Specification</span>
+      <h1 class="doc-title">InterviewIQ AI Pro — Project Documentation</h1>
+      <p class="doc-subtitle">Next-Generation Autonomous AI Mock Interview, Speech Telemetry & Evaluation Platform</p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Project Name</strong>
+          InterviewIQ AI Pro
+        </div>
+        <div class="meta-item">
+          <strong>Application Version</strong>
+          v2.5.0 (Production Competition Grade)
+        </div>
+        <div class="meta-item">
+          <strong>Architecture</strong>
+          Modern Single-Page Application (SPA)
+        </div>
+        <div class="meta-item">
+          <strong>Target Users</strong>
+          Software Engineers, Candidates & Recruiters
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Executive Summary -->
+    <h2>1. Executive Summary & Overview</h2>
+    <p>
+      <strong>InterviewIQ AI Pro</strong> is a state-of-the-art, competition-level autonomous mock interview platform. It simulates real-world hiring environments by pairing candidates with an animated AI interviewer avatar, live speech recognition, real-time audio/visual telemetry, an integrated code sandbox, an architectural whiteboard, and a multi-dimensional semantic scoring system.
+    </p>
+    <p>
+      The platform operates with zero backend dependencies using modern client-side Web APIs, local persistence databases, and fallback NLP evaluation heuristics. It also supports direct Google Gemini API integration for live LLM response analysis.
+    </p>
+
+    <!-- Section 2: Core Feature Suite -->
+    <h2>2. Complete Feature & Module Breakdown</h2>
+
+    <div class="feature-card">
+      <h4>🔐 1. Authentication, Multi-User Sessions & Role-Based Access Control (RBAC)</h4>
+      <p><strong>File:</strong> <code>login.html</code>, <code>js/storage.js</code></p>
+      <ul>
+        <li><strong>Secure Local DB:</strong> Multi-user registration and encrypted password storage (Base64 hash abstraction) in <code>localStorage</code> under <code>interviewiq_users_db</code>.</li>
+        <li><strong>Session Isolation:</strong> Active user authentication managed through <code>sessionStorage</code> with route guards on <code>index.html</code> and <code>admin.html</code>.</li>
+        <li><strong>One-Click Guest Access:</strong> Allows rapid trial mode without registration.</li>
+        <li><strong>Admin Role Separation:</strong> Dedicated administrator account with exclusive access to the system telemetry and management dashboard.</li>
+      </ul>
+    </div>
+
+    <div class="feature-card accent">
+      <h4>🛡️ 2. Admin Command Center & Real-Time Traffic Analytics</h4>
+      <p><strong>File:</strong> <code>admin.html</code></p>
+      <ul>
+        <li><strong>Live Platform KPI Cards:</strong> Real-time counts for Total Users, Successful Logins, New Registrations, Guest Sessions, Failed Attempts, Total Interviews Taken, and Platform Average Score.</li>
+        <li><strong>7-Day Activity Histogram:</strong> Dynamic visual bar chart summarizing daily user engagement.</li>
+        <li><strong>Real-Time Activity Log Feed:</strong> Instant chronological stream of all security and session events (Logins, Registrations, Guest Access, Failed logins).</li>
+        <li><strong>User Directory & Management:</strong> Comprehensive table of all registered users with interview metrics and one-click user deletion.</li>
+        <li><strong>Log Export & Clear Tools:</strong> Administrative data sanitation and management utilities.</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <h4>🎙️ 3. Animated AI Interviewer Avatar & Speech Synthesis</h4>
+      <p><strong>File:</strong> <code>js/avatar.js</code>, <code>js/speech.js</code></p>
+      <ul>
+        <li><strong>Interactive SVG Avatar:</strong> Vector-based avatar with real-time lip synchronization, eye blinking, listening pulse animations, and expressive state transitions (Idle, Speaking, Thinking, Listening).</li>
+        <li><strong>Web Speech Synthesis (TTS):</strong> Natural voice narration of dynamic interview questions with adjustable pitch, rate, and voice profile selection.</li>
+        <li><strong>Web Speech Recognition (STT):</strong> Continuous speech-to-text transcription converting spoken answers into text transcripts with real-time word counting and filler-word detection.</li>
+      </ul>
+    </div>
+
+    <div class="feature-card success">
+      <h4>📊 4. Real-Time Telemetry & Audio-Visual Bio-feedback</h4>
+      <p><strong>File:</strong> <code>js/analytics-realtime.js</code></p>
+      <ul>
+        <li><strong>Webcam Video Stream:</strong> Live client-side camera preview with frame stability tracking.</li>
+        <li><strong>Audio Volume VU-Meter:</strong> Live Web Audio API frequency analysis monitoring voice clarity and input energy.</li>
+        <li><strong>Speaking Pace (WPM Meter):</strong> Real-time Words-Per-Minute monitoring alerting users if they are speaking too fast (&gt;160 WPM) or too slow (&lt;90 WPM).</li>
+        <li><strong>Filler Word Counter:</strong> Real-time detection and counting of hesitation words (<em>"um", "uh", "like", "basically", "literally", "you know"</em>).</li>
+      </ul>
+    </div>
+
+    <div class="feature-card warning">
+      <h4>🧠 5. 7-Dimensional Semantic Scoring Engine</h4>
+      <p><strong>File:</strong> <code>js/ai-engine.js</code></p>
+      <p>The platform evaluates candidate answers across 7 core industry competencies:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Evaluation Dimension</th>
+            <th>Weight</th>
+            <th>Criteria & Signals Detected</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Technical Accuracy</strong></td>
+            <td>25%</td>
+            <td>Architecture terms, algorithms, data structures, complexity (Big O), concurrency.</td>
+          </tr>
+          <tr>
+            <td><strong>STAR Framework Structure</strong></td>
+            <td>15%</td>
+            <td>Situation, Task, Action, Result methodology clarity in behavioral scenarios.</td>
+          </tr>
+          <tr>
+            <td><strong>Clarity & Articulation</strong></td>
+            <td>15%</td>
+            <td>Sentence flow, vocabulary precision, minimal filler words, concise reasoning.</td>
+          </tr>
+          <tr>
+            <td><strong>Problem-Solving Methodology</strong></td>
+            <td>15%</td>
+            <td>Root-cause identification, edge-case consideration, trade-off analysis.</td>
+          </tr>
+          <tr>
+            <td><strong>Quantitative Metrics</strong></td>
+            <td>10%</td>
+            <td>Inclusion of concrete numbers, percentages, latency reduction, scale metrics.</td>
+          </tr>
+          <tr>
+            <td><strong>Confidence & Pace</strong></td>
+            <td>10%</td>
+            <td>Consistent audio energy, optimal speech pace (100–140 WPM).</td>
+          </tr>
+          <tr>
+            <td><strong>Domain Specificity</strong></td>
+            <td>10%</td>
+            <td>Role-specific terminology (Frontend, Backend, System Design, DevOps, HR).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="feature-card">
+      <h4>💻 6. Integrated Code Sandbox & Execution Environment</h4>
+      <p><strong>File:</strong> <code>js/code-editor.js</code></p>
+      <ul>
+        <li><strong>Multi-Language Code Editor:</strong> Syntax-aware editor supporting JavaScript, Python, C++, Java, and SQL.</li>
+        <li><strong>In-Browser JavaScript Execution:</strong> Safe iframe-sandboxed runtime executing JavaScript code with output console logging and execution time tracking.</li>
+        <li><strong>Starter Boilerplates:</strong> Preloaded algorithmic problem templates (Two Sum, LRU Cache, Binary Tree traversal).</li>
+      </ul>
+    </div>
+
+    <div class="feature-card accent">
+      <h4>📐 7. Interactive Architecture & Whiteboard Canvas</h4>
+      <p><strong>File:</strong> <code>js/whiteboard.js</code></p>
+      <ul>
+        <li><strong>HTML5 Canvas Whiteboard:</strong> High-performance vector drawing tool with pen, rectangle, circle, text, eraser, and color palette.</li>
+        <li><strong>System Architecture Pre-sets:</strong> Ready-to-use building blocks for Microservices, Load Balancers, Redis Caches, and SQL Databases.</li>
+        <li><strong>Export Capability:</strong> One-click PNG canvas export for design artifacts.</li>
+      </ul>
+    </div>
+
+    <div class="feature-card success">
+      <h4>📄 8. Resume PDF Parser & Adaptive Question Generator</h4>
+      <p><strong>File:</strong> <code>js/pdf-parser.js</code></p>
+      <ul>
+        <li><strong>Client-Side PDF Extraction:</strong> Parses uploaded candidate resumes using PDF.js.</li>
+        <li><strong>Keyword & Skill Extraction:</strong> Automatically extracts technical stack (e.g. React, Node, AWS, Docker, Kubernetes, SQL) and customizes interview questions around candidate experience.</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <h4>🏆 9. Official Verified Certificate of Performance</h4>
+      <p><strong>File:</strong> <code>js/certificate.js</code></p>
+      <ul>
+        <li><strong>Dynamic Canvas Rendering:</strong> Generates a high-resolution, branded certification diploma.</li>
+        <li><strong>Cryptographic Verification Hash:</strong> Issues a unique verification ID based on the candidate score, timestamp, and evaluation breakdown.</li>
+        <li><strong>Instant PDF/PNG Download:</strong> Candidates can export and share their credential on LinkedIn or portfolios.</li>
+      </ul>
+    </div>
+
+    <!-- Section 3: Technical Specifications -->
+    <h2>3. Technical Specifications & File Architecture</h2>
+
+    <pre>
+interviewiq-ai/
+├── admin.html               # Admin Dashboard (Stats, Live Logs, User Management)
+├── index.html               # Main Interview Studio Application
+├── login.html               # Authentication (Login, Register, Guest, Admin Router)
+├── css/
+│   └── style.css            # Dark Glassmorphism Design System & Responsive Layout
+└── js/
+    ├── ai-engine.js         # 7-Dimensional Semantic Evaluator + Gemini API Bridge
+    ├── analytics-realtime.js# Live VU Meter, WPM Telemetry & Filler Word Detector
+    ├── app.js               # Application Orchestrator, UI Controller & State Manager
+    ├── avatar.js            # Interactive SVG Lip-syncing AI Interviewer
+    ├── certificate.js       # Verified High-Resolution Certificate Generator
+    ├── code-editor.js       # Live Code Sandbox & In-browser JS Runtime
+    ├── pdf-parser.js        # Client-side PDF Resume Extractor
+    ├── speech.js            # Web Speech API (STT Transcription + TTS Voice Synthesis)
+    ├── storage.js           # Multi-User Database & Profile State Persistence
+    └── whiteboard.js        # Architectural Canvas & Diagramming Tool
+    </pre>
+
+    <!-- Section 4: Credentials & Access -->
+    <h2>4. Access Credentials & Quick Reference</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>URL</th>
+          <th>Credentials</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Administrator</strong></td>
+          <td><code>login.html</code> or <code>admin.html</code></td>
+          <td>Email: <code>admin@interviewiq.com</code><br>Password: <code>Admin@IQ2025</code></td>
+        </tr>
+        <tr>
+          <td><strong>Registered User</strong></td>
+          <td><code>login.html</code></td>
+          <td>Any registered email & password (min 6 chars)</td>
+        </tr>
+        <tr>
+          <td><strong>Guest Access</strong></td>
+          <td><code>login.html</code></td>
+          <td>Click <em>"Continue as Guest"</em> button</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 5: Deployment Guide -->
+    <h2>5. Deployment & Hosting Guide</h2>
+    <p>
+      InterviewIQ AI Pro is 100% static and can be deployed in under 60 seconds on any global Edge CDN:
+    </p>
+    <ol>
+      <li><strong>Netlify Drop (Recommended):</strong> Drag the <code>interviewiq-ai</code> folder into <a href="https://app.netlify.com/drop" target="_blank">app.netlify.com/drop</a> for an instant HTTPS URL.</li>
+      <li><strong>Vercel:</strong> Run <code>vercel deploy</code> or connect your GitHub repository.</li>
+      <li><strong>GitHub Pages:</strong> Push to a GitHub repository and enable Pages in repository settings.</li>
+    </ol>
+
+  </div>
+
+</body>
+</html>
